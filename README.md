@@ -14,3 +14,21 @@
 7. Get into your MySQL server by running `mysql -u root -p`
 8. Choose your db `use openmrs`
 9. Import the latest concepts with `source eregister_concepts_release_v1.sql`
+
+## Dump the concept dictionary from the reports DB container
+
+Run this **from the host** (not inside a container). It executes the dump inside
+`bahmni-standard-reportsdb-1` and writes a timestamped `.sql` file to your current
+folder. No clone needed — just copy and paste:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/Lesotho-eRegister-v1/eregister_concepts_release_v1/main/run_concept_dump.sh | bash
+```
+
+You'll be prompted for the MySQL password. To target a different container, DB,
+user, or output file, set the matching variables first:
+
+```bash
+CONTAINER=bahmni-standard-reportsdb-1 DB=openmrs DB_USER=root OUT=concepts.sql \
+  bash <(curl -fsSL https://raw.githubusercontent.com/Lesotho-eRegister-v1/eregister_concepts_release_v1/main/run_concept_dump.sh)
+```
