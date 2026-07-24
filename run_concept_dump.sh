@@ -20,9 +20,15 @@ OUT="${OUT:-omrs_concept_dictionary_$(date +%Y%m%d_%H%M%S).sql}"
 RAW_BASE="https://raw.githubusercontent.com/Lesotho-eRegister-v1/eregister_concepts_release_v1/main"
 
 # Prompt for the MySQL password unless it was already supplied via MYSQL_PWD.
+# Read from /dev/tty, not stdin, so this still works under `curl ... | bash`
+# (where stdin is the pipe, not your keyboard).
 if [[ -z "${MYSQL_PWD:-}" ]]; then
-  read -rsp "MySQL password for ${DB_USER}@${CONTAINER}: " MYSQL_PWD
+  read -rsp "MySQL password for ${DB_USER}@${CONTAINER}: " MYSQL_PWD </dev/tty
   echo
+fi
+if [[ -z "${MYSQL_PWD:-}" ]]; then
+  echo "Error: no password provided. Set MYSQL_PWD=... or enter one when prompted." >&2
+  exit 1
 fi
 
 # Make sure the target container exists and is running.
@@ -35,7 +41,8 @@ fi
 echo "Dumping '$DB' from container '$CONTAINER' -> $OUT" >&2
 
 # Fetch the dump script and run it INSIDE the container, streaming stdout to the host.
-curl -fsSL "$RAW_BASE/dump_concept_dictionary.sh" \
+# The ?cb= query busts GitHub's raw CDN cache so we always get the current script.
+curl -fsSL "$RAW_BASE/dump_concept_dictionary.sh?cb=$(date +%s)" \
   | docker exec -i \
       -e MYSQL_PWD="$MYSQL_PWD" \
       -e DB="$DB" \
