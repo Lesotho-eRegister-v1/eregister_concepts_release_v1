@@ -9,11 +9,11 @@
 #   curl -fsSL https://raw.githubusercontent.com/Lesotho-eRegister-v1/eregister_concepts_release_v1/main/run_concept_dump.sh | bash
 #
 # Overridable via environment, e.g.:
-#   CONTAINER=bahmni-standard-reportsdb-1 DB=openmrs DB_USER=root \
+#   CONTAINER=bahmni-standard-openmrsdb-1 DB=openmrs DB_USER=root \
 #   OUT=my_dump.sql MYSQL_PWD=secret bash run_concept_dump.sh
 set -euo pipefail
 
-CONTAINER="${CONTAINER:-bahmni-standard-reportsdb-1}"
+CONTAINER="${CONTAINER:-bahmni-standard-openmrsdb-1}"
 DB="${DB:-openmrs}"
 DB_USER="${DB_USER:-root}"
 OUT="${OUT:-omrs_concept_dictionary_$(date +%Y%m%d_%H%M%S).sql}"
