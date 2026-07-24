@@ -46,7 +46,7 @@ TABLES=(
 )
 
 mysqldump \
-  --user="$DB_USER" "${PW_ARG[@]}" \
+  --user="$DB_USER" "${PW_ARG[@]+"${PW_ARG[@]}"}" \
   --single-transaction \
   --no-tablespaces \
   --skip-add-locks \
