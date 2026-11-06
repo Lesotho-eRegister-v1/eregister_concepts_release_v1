@@ -40,6 +40,7 @@ TABLES=(
   concept_reference_map
   concept_reference_term_map
   concept_state_conversion
+  person_attribute_type
   drug
   drug_ingredient
   drug_reference_map

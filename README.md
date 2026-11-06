@@ -18,7 +18,7 @@
 ## Dump the concept dictionary from the reports DB container
 
 Run this **from the host** (not inside a container). It executes the dump inside
-`bahmni-standard-reportsdb-1` and writes a timestamped `.sql` file to your current
+`bahmni-standard-reportsdb-1` and writes a dated `.sql` file to your current
 folder. No clone needed — just copy and paste:
 
 ```bash

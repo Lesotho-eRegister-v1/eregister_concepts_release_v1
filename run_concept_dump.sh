@@ -16,7 +16,7 @@ set -euo pipefail
 CONTAINER="${CONTAINER:-bahmni-standard-openmrsdb-1}"
 DB="${DB:-openmrs}"
 DB_USER="${DB_USER:-root}"
-OUT="${OUT:-omrs_concept_dictionary_$(date +%Y%m%d_%H%M%S).sql}"
+OUT="${OUT:-omrs_concept_dictionary_$(date +%Y%m%d).sql}"
 RAW_BASE="https://raw.githubusercontent.com/Lesotho-eRegister-v1/eregister_concepts_release_v1/main"
 
 # Prompt for the MySQL password unless it was already supplied via MYSQL_PWD.
